@@ -18,7 +18,7 @@ const Providers = () => {
     
     return(
         <>
-        <h2 className="text-center">Find Dental Provider</h2>
+        <h2 className="text-center text-xl underline">Find Dental Provider</h2>
         <form className="text-center" onSubmit={handleSubmit}>
             <label>Select Provider: {''} 
             <select value={providerName} onChange={e => setProviderName(e.target.value)}>

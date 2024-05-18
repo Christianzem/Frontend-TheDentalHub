@@ -15,17 +15,28 @@ const Patients = ({providerName}) => {
     ]
 
     return (
-        <div className="bg-gray-400 text-white">
-        <h2>{providerName} - Patients</h2>
-        <ul>
-        {patients.map((patient, index) => (
-            <li key={index}>{patient}
-            <button className="bg-blue-500 rounded-sm text-white m-2 p-2 hover:bg-blue-700"><a href="/details">VIEW</a></button>
-            <button className="bg-green-500 rounded-sm text-white m-2 p-2 hover:bg-green-700"><a href="#">EDIT</a></button>
-            <button className="bg-red-500 rounded-sm text-white m-2 p-2 hover:bg-red-700"><a href="#">DELETE</a></button>
-            </li>
-        ))}
-        </ul>                 
+        <div className="bg-blue-500 text-white p-5">
+            <h2 className="text-xl underline font-bold">{providerName} - Patients</h2>
+            <table className="w-full mt-5">
+                <thead>
+                    <tr>
+                        <th className="px-4 py-2">Patient Name</th>
+                        <th className="px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {patients.map((patient, index) => (
+                        <tr key={index}>
+                            <td className="border px-4 py-2">{patient}</td>
+                            <td className="border px-4 py-2">
+                                <button className="bg-orange-500 rounded-sm text-white m-2 p-2 hover:bg-orange-700"><a href="/details">VIEW</a></button>
+                                <button className="bg-green-500 rounded-sm text-white m-2 p-2 hover:bg-green-700"><a href="#">EDIT</a></button>
+                                <button className="bg-red-500 rounded-sm text-white m-2 p-2 hover:bg-red-700"><a href="#">DELETE</a></button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }
