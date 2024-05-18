@@ -4,7 +4,7 @@ import '../src/tailwind.css';
 import { Route, Routes } from 'react-router-dom';
 import Signup from './components/signup';
 import Login from './components/login';
-import Providers from './components/providerlist';
+import Providers from './pages/Home';
 import Navbar from './components/nav';
 import Patients from './pages/Patients';
 
