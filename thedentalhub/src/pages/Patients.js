@@ -1,5 +1,5 @@
 
-const Patients = ({providerName}) => {
+const Patients = (props) => {
 
     const patients = [
         'Rickey Cardenas',
@@ -16,7 +16,10 @@ const Patients = ({providerName}) => {
 
     return (
         <div className="bg-blue-500 text-white p-5">
-            <h2 className="text-xl underline font-bold">{providerName} - Patients</h2>
+            <div class="flex justify-between items-center">
+            <h2 className="text-xl underline font-bold">{props.providerName} - Patients</h2>
+            <button className="bg-green-500 rounded-sm text-white p-2 m-2 hover:bg-green-700"><a href="/newPatient">ADD NEW PATIENT</a></button>                
+            </div>
             <table className="w-full mt-5">
                 <thead>
                     <tr>
