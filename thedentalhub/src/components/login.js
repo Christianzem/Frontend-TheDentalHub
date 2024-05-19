@@ -5,11 +5,13 @@ const Login = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        props.handleLogin(form)
     };
 
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value});
     };
+
 
     return (
         <div className="form-container flex flex-col m-10 items-center">
@@ -30,7 +32,6 @@ const Login = (props) => {
                 <div className="flex justify-center">
                 <button type="submit" className="bg-violet-500 hover:bg-violet-600 text-white p-2 rounded-md m-3">Login</button>                    
                 </div>
-
             </form>
         </div>
     );

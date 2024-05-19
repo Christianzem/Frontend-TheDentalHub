@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Patients from "./Patients";
 
-const Providers = () => {
+const Providers = (props) => {
     // const provider_list = [
     //     'Dr. Mendoza',
     //     'Dr. William',
@@ -9,7 +9,6 @@ const Providers = () => {
     //     'Dr. Alvarez',
     // ] 
     const [providerName, setProviderName] = useState('Dr. Mendoza');
-    
 
     function handleSubmit(e) {
         e.preventDefault();
