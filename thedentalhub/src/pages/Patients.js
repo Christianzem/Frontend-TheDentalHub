@@ -1,7 +1,9 @@
+import { useState } from "react"
 
 const Patients = (props) => {
 
-    const patients = [
+    const [patients, setPatients] = useState(
+     [
         'Rickey Cardenas',
         'Evan Perry',
         'Lydia Frank',
@@ -12,7 +14,8 @@ const Patients = (props) => {
         'Caroline Shaffer',
         'Rosalie Bowen',
         'Dusty Savage'
-    ]
+    ]   
+    ) 
 
     return (
         <div className="bg-blue-500 text-white p-5">

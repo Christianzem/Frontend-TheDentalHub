@@ -31,7 +31,7 @@ const Providers = (props) => {
             {/* <button className="bg-blue-500 rounded-sm text-white m-4 p-2 hover:bg-blue-700"><a href="/patients">NEXT</a></button> */}
         </form>            
         </div>
-        <Patients providerName={providerName}/>
+        <Patients providerName={providerName} handleSubmit={handleSubmit}/>
         </>
 
     );
