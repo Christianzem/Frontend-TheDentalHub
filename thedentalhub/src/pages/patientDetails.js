@@ -1,4 +1,5 @@
 import { useState } from "react"
+import ProsthesisList from "./Prostheses"
 
 const Details = () => {
     const [patient, setPatient] = useState(
@@ -21,6 +22,7 @@ const Details = () => {
                 <h3 className="text-lg">Date of Birth: {patient.dateOfBirth}</h3>
                 <h3 className="text-lg">Patient #{patient.patientNum}</h3>
             </div>
+            <ProsthesisList/>
         </div>
     )
 }

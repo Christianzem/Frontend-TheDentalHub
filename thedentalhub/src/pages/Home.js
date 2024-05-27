@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Patients from "./Patients";
+import NewPatient from "./newPatient";
 
 const Providers = (props) => {
     // const provider_list = [

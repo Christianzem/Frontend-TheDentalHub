@@ -10,6 +10,7 @@ import Patients from './pages/Patients';
 import Details from './pages/patientDetails';
 import Prosthesis from './pages/prosthesisForm';
 import NewPatient from './pages/newPatient';
+import ProsthesisList from './pages/Prostheses';
 
 function App() {
   const Navigate = useNavigate();
@@ -32,6 +33,7 @@ function App() {
     <Route path='/details' element={<Details/>}></Route>
     <Route path='/form' element={<Prosthesis/>}></Route>
     <Route path="/newPatient" element={<NewPatient/>}></Route>
+    <Route path="/prosthesis" element={<ProsthesisList/>}></Route>
 </Routes>
     </>
 
