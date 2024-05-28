@@ -2,13 +2,27 @@ import { useState } from "react"
 
 const Prosthesis = () => {
 
-    const [form, setForm] = useState(null)
+    const [form, setForm] = useState([])
     const [type, setType] = useState('Default')
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
          e.preventDefault()
-
-    }
+         try {
+            const response = await fetch("http://localhost:8000/add_Prosthesis", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form), // Send the form data as JSON
+            });
+            const data = await response.json();
+            console.log(data); // Log the response from the backend
+            // Optionally, handle the response as needed (e.g., display a success message)
+        } catch (error) {
+            console.error("Error:", error);
+            // Optionally, handle errors (e.g., display an error message)
+        }
+    };
 
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
