@@ -11,6 +11,7 @@ import Details from './pages/patientDetails';
 import Prosthesis from './pages/prosthesisForm';
 import NewPatient from './pages/newPatient';
 import AddPatientForm from './pages/newPatient';
+import AddProsthesisForm from './pages/prosthesisForm';
 import ProsthesisList from './pages/Prostheses';
 import { useState } from 'react';
 
@@ -57,7 +58,8 @@ function App() {
     <Route path='/home' element={<Providers/>}></Route>,
     <Route path="/patients" element={<Patients/>}></Route>
     <Route path='/details/:id' element={<Details/>}></Route>
-    <Route path='/form' element={<Prosthesis/>}></Route>
+    <Route path='/form' element={<AddProsthesisForm/>}></Route>
+    <Route path="/form/:id" element={<AddProsthesisForm/>}></Route>
     {/* <Route path="/patient" element={<NewPatient/>}></Route> */}
     <Route path="/patient" element={<AddPatientForm/>}></Route>
     <Route path="/edit/:id" element={<AddPatientForm/>}></Route>

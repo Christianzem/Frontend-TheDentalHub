@@ -5,22 +5,36 @@ const Patients = (props) => {
     const URL = process.env.REACT_APP_URL;
     const [patientsArr, setPatientsArr] = useState([]);
 
-  useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/patients");
-        if (!response.ok) {
-          throw new Error("Failed to fetch patients");
-        }
-        const data = await response.json();
-        setPatientsArr(data.patient);
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-      }
-    };
 
-    fetchPatients();
-  }, []);
+    useEffect(() => {
+        const fetchPatients = async () => {
+          try {
+            const response = await fetch("http://localhost:8000/patients");
+            if (!response.ok) {
+              throw new Error("Failed to fetch patients");
+            }
+            const data = await response.json();
+            console.log("Fetched patient data:", data);
+            
+            // Check if the provider_id is present in each patient object
+            if (data.patient.length > 0) {
+              console.log("First patient's provider_id:", data.patient[2].provider_id);
+            }
+    
+            // Filter patients based on the provider ID received as prop
+            const filteredPatients = data.patient.filter(patient => parseInt(patient.provider_id) === props.providerId);
+            console.log("Filtered patients:", filteredPatients);
+            console.log("props:", props.providerId)
+    
+            setPatientsArr(filteredPatients);
+          } catch (error) {
+            console.error("Error fetching patients:", error);
+          }
+        };
+    
+        fetchPatients();
+    }, [props.providerId]);
+    
 
   const handleDelete = async (id) => {
     try {
@@ -41,7 +55,7 @@ const Patients = (props) => {
     <div className="bg-blue-500 text-white p-5">
       <div className="flex justify-between items-center">
         <h2 className="text-xl underline font-bold">
-          {props.provider.name} - Patients
+          {props.providerName} - Patients
         </h2>
         <button className="bg-green-500 rounded-sm text-white p-2 m-2 hover:bg-green-700">
           <a href="/patient">ADD NEW PATIENT</a>

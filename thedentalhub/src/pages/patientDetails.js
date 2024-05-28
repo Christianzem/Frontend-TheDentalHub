@@ -40,7 +40,7 @@ const Details = () => {
                     </>
                 )}
             </div>
-            <ProsthesisList />
+            <ProsthesisList/>
         </div>
     );
 };

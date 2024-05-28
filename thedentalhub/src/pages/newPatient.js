@@ -7,7 +7,8 @@ const AddPatientForm = () => {
         first_name: "",
         last_name: "",
         birth_date: "",
-        patient_number: ""
+        patient_number: "",
+        provider_id: 1, // Default provider ID
     });
 
     // If patientId is provided, fetch patient data for update
@@ -70,7 +71,8 @@ const AddPatientForm = () => {
                 first_name: "",
                 last_name: "",
                 birth_date: "",
-                patient_number: ""
+                patient_number: "",
+                provider_id: 1, // Reset provider ID to default
             });
         } catch (error) {
             console.error("Error adding/updating patient:", error);
@@ -78,52 +80,74 @@ const AddPatientForm = () => {
     };
 
     return (
+<div className="max-w-md mx-auto">
+    <h2 className="text-xl font-bold mb-4">{id ? "Update Patient" : "Add New Patient"}</h2>
+    <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-            <h2>{id ? "Update Patient" : "Add New Patient"}</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    First Name:
-                    <input
-                        type="text"
-                        name="first_name"
-                        value={formData.first_name}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Last Name:
-                    <input
-                        type="text"
-                        name="last_name"
-                        value={formData.last_name}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Birth Date:
-                    <input
-                        type="date"
-                        name="birth_date"
-                        value={formData.birth_date}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Patient Number:
-                    <input
-                        type="text"
-                        name="patient_number"
-                        value={formData.patient_number}
-                        onChange={handleChange}
-                    />
-                </label>
-                <br />
-                <button type="submit">{id ? "Update" : "Add"}</button>
-            </form>
+            <label className="block mb-1" htmlFor="first_name">First Name:</label>
+            <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                value={formData.first_name}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
         </div>
+        <div>
+            <label className="block mb-1" htmlFor="last_name">Last Name:</label>
+            <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                value={formData.last_name}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </div>
+        <div>
+            <label className="block mb-1" htmlFor="birth_date">Birth Date:</label>
+            <input
+                type="date"
+                id="birth_date"
+                name="birth_date"
+                value={formData.birth_date}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </div>
+        <div>
+            <label className="block mb-1" htmlFor="patient_number">Patient Number:</label>
+            <input
+                type="text"
+                id="patient_number"
+                name="patient_number"
+                value={formData.patient_number}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </div>
+        <div>
+            <label className="block mb-1" htmlFor="provider_id">Provider:</label>
+            <select
+                id="provider_id"
+                name="provider_id"
+                value={formData.provider_id}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            >
+                <option value={1}>Dr. Mendoza</option>
+                <option value={2}>Dr. William</option>
+                <option value={3}>Dr. Charm</option>
+                <option value={4}>Dr. Alvarez</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">{id ? "Update" : "Add"}</button>
+        </div>
+    </form>
+</div>
+
     );
 };
 

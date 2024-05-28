@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
-function ProsthesisList() {
+function ProsthesisList(props) {
     const URL = process.env.REACT_APP_URL
     const [prostheses, setProstheses] = useState([]);
 
@@ -22,27 +23,66 @@ function ProsthesisList() {
         fetchProstheses();
     }, []);
 
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8000/delete_Prosthesis/${id}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete prosthesis');
+            }
+            // Filter out the deleted prosthesis from the list
+            // setProstheses(prostheses.filter(prosthesis => prosthesis._id !== id));
+            setProstheses(prevProstheses => prevProstheses.filter(prosthesis => prosthesis._id !== id));
+        } catch (error) {
+            console.error('Error deleting prosthesis:', error);
+        }
+    };
 
     return (
-        <div>
-            <h2>Prosthesis List</h2>
-            <ul>
+<div className="overflow-x-auto">
+    <h2 className="text-xl font-bold mb-4">Prosthesis List</h2>
+    <table className="table-auto min-w-full">
+        <thead>
+            <tr className="bg-gray-200">
+                <th className="px-4 py-2">Prosthesis Type</th>
+                <th className="px-4 py-2">Sent to Lab</th>
+                <th className="px-4 py-2">Sent Date</th>
+                <th className="px-4 py-2">Arrived</th>
+                <th className="px-4 py-2">Arrival Date</th>
+                <th className="px-4 py-2">Resent</th>
+                <th className="px-4 py-2">Resent Date</th>
+                <th className="px-4 py-2">Delivered</th>
+                <th className="px-4 py-2">Delivery Date</th>
+                <th className="px-4 py-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
             {prostheses.map(prosthesis => (
-                <li key={prosthesis._id}>
-                    <strong>Prosthesis Type:</strong> {prosthesis.name}<br />
-                    <strong>Is it sent to the lab?</strong> {prosthesis.lab ? "Yes" : "No"}<br />
-                    <strong>Sent Date: </strong> {prosthesis.selected_date1 ? new Date(prosthesis.selected_date1).toLocaleDateString() : "N/A"}<br />
-                    <strong>Did it arrive?</strong> {prosthesis.arrival ? "Yes" : "No"}<br />
-                    <strong>Arrival Date: </strong> {prosthesis.selected_date2 ? new Date(prosthesis.selected_date2).toLocaleDateString() : "N/A"}<br />
-                    <strong>Was it resent?</strong> {prosthesis.resent ? "Yes" : "No"}<br />
-                    <strong>Resent Date: </strong> {prosthesis.selected_date3 ? new Date(prosthesis.selected_date3).toLocaleDateString() : "N/A"}<br />
-                    <strong>Was it delivered?</strong> {prosthesis.delivered ? "Yes" : "No"}<br />
-                    <strong>Delivery Date: </strong> {prosthesis.selected_date4 ? new Date(prosthesis.selected_date4).toLocaleDateString() : "N/A"}<br />
-                 </li>
+                <tr key={prosthesis._id}>
+                    <td className="border px-4 py-2">{prosthesis.name}</td>
+                    <td className="border px-4 py-2">{prosthesis.lab ? "Yes" : "No"}</td>
+                    <td className="border px-4 py-2">{prosthesis.selected_date1 ? new Date(prosthesis.selected_date1).toLocaleDateString() : "N/A"}</td>
+                    <td className="border px-4 py-2">{prosthesis.arrival ? "Yes" : "No"}</td>
+                    <td className="border px-4 py-2">{prosthesis.selected_date2 ? new Date(prosthesis.selected_date2).toLocaleDateString() : "N/A"}</td>
+                    <td className="border px-4 py-2">{prosthesis.resent ? "Yes" : "No"}</td>
+                    <td className="border px-4 py-2">{prosthesis.selected_date3 ? new Date(prosthesis.selected_date3).toLocaleDateString() : "N/A"}</td>
+                    <td className="border px-4 py-2">{prosthesis.delivered ? "Yes" : "No"}</td>
+                    <td className="border px-4 py-2">{prosthesis.selected_date4 ? new Date(prosthesis.selected_date4).toLocaleDateString() : "N/A"}</td>
+                    <td className="border px-4 py-2">
+                        <button className="bg-green-500 rounded-sm text-white m-2 p-2 hover:bg-green-700">
+                            <Link to={`/form/${prosthesis._id}`}>EDIT</Link>
+                        </button>
+                        <button className="bg-red-500 rounded-sm text-white m-2 p-2 hover:bg-red-700" onClick={() => handleDelete(prosthesis._id)}>
+                            DELETE
+                        </button>
+                    </td>
+                </tr>
             ))}
+        </tbody>
+    </table>
+</div>
 
-            </ul>
-        </div>
     );
 }
 

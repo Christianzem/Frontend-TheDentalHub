@@ -1,75 +1,205 @@
-import { useState } from "react"
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
-const Prosthesis = () => {
+const AddProsthesisForm = () => {
+    const { id } = useParams();
+    const [formData, setFormData] = useState({
+        prosthesis_type: "",
+        checkbox1: false,
+        checkbox2: false,
+        checkbox3: false,
+        checkbox4: false,
+        selected_date1: "",
+        selected_date2: "",
+        selected_date3: "",
+        selected_date4: ""
+    });
+    const [error, setError] = useState("");
 
-    const [form, setForm] = useState([])
-    const [type, setType] = useState('Default')
-    
-    const handleSubmit = async(e) => {
-         e.preventDefault()
-         try {
-            const response = await fetch("http://localhost:8000/add_Prosthesis", {
-                method: "POST",
+    useEffect(() => {
+        if (id) {
+            const fetchProsthesisData = async () => {
+                try {
+                    const response = await fetch(`http://localhost:8000/prosthesis/${id}`);
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch Prosthesis data");
+                    }
+                    const data = await response.json();
+                    setFormData(data.Prosthesis);
+                } catch (error) {
+                    console.error("Error fetching Prosthesis data: ", error);
+                }
+            };
+            fetchProsthesisData();
+        }
+    }, [id]);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            let url = "http://localhost:8000/add_Prosthesis";
+            let method = "POST";
+
+            if (id) {
+                url = `http://localhost:8000/update_Prosthesis/${id}`;
+                method = "POST";
+            }
+
+            const response = await fetch(url, {
+                method: method,
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify(form), // Send the form data as JSON
+                body: JSON.stringify(formData)
             });
-            const data = await response.json();
-            console.log(data); // Log the response from the backend
-            // Optionally, handle the response as needed (e.g., display a success message)
+
+            if (!response.ok) {
+                throw new Error("Failed to add/update Prosthesis");
+            }
+
+            setFormData(prevState => ({
+                ...prevState,
+                checkbox1: false,
+                checkbox2: false,
+                checkbox3: false,
+                checkbox4: false
+            }));
+
+            // Optionally, provide feedback to the user on successful submission
+            console.log("Prosthesis added/updated successfully");
+
         } catch (error) {
-            console.error("Error:", error);
-            // Optionally, handle errors (e.g., display an error message)
+            console.error("Error adding/updating prosthesis:", error);
+            setError("Failed to add/update Prosthesis. Please try again.");
         }
     };
 
-    const handleChange = (e) => {
-        setForm({...form, [e.target.name]: e.target.value})
-    }
-
-    return(
-    <div className="bg-blue-500 p-10 text-center m-10 drop-shadow-xl rounded-md">
-      <h1 className="m-4 text-white text-xl underline">New Dental Prosthesis</h1>
-        <form onSubmit={handleSubmit}>
-            <label className="text-white"> Select Prosthesis Type: 
-            <select className="text-black" value={type} onChange={e => setType(e.target.value)}>
-                <option value="Default"></option>
+    return (
+<div className="max-w-md mx-auto">
+    <h2 className="text-xl font-bold mb-4">{id ? "Update Prosthesis" : "Add New Prosthesis"}</h2>
+    <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+            <label className="block mb-1" htmlFor="prosthesis_type">Prosthesis Type:</label>
+            <select
+                name="prosthesis_type"
+                value={formData.prosthesis_type}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            >
+                <option value="">Select Type</option>
                 <option value="Crown">Crown</option>
                 <option value="Denture">Denture</option>
                 <option value="Partial">Partial</option>
-                <option value="Night Guard">Night Gaurd</option>
+                <option value="Night Guard">Night Guard</option>
             </select>
+        </div>
+        <div>
+            <label className="block mb-1">
+                <input
+                    type="checkbox"
+                    name="checkbox1"
+                    checked={formData.checkbox1}
+                    onChange={handleChange}
+                    className="mr-2"
+                />
+                Was it sent to the Lab?
             </label>
-            <div id= "checkbox1" className="m-4">
-                <input type="checkbox"/>
-                <label className="text-white"> Is sent to lab?</label>
-                <label className="text-white"> Date: </label>
-                <input type="date" onChange={handleChange}></input>   
-            </div>
-            <div id= "checkbox2" className="m-4">
-                <input type="checkbox"/>
-                <label className="text-white"> Has it arrived?</label>
-                <label className="text-white"> Date: </label>
-                <input type="date" onChange={handleChange}></input>   
-            </div>
-            <div id= "checkbox3" className="m-4">
-                <input type="checkbox"/>
-                <label className="text-white"> Is it resent to lab?</label>
-                <label className="text-white"> Date: </label>
-                <input type="date" onChange={handleChange}></input>   
-            </div>
-            <div id= "checkbox4" className="m-4">
-                <input type="checkbox"/>
-                <label className="text-white"> Has it been delivered?</label>
-                <label className="text-white"> Date: </label>
-                <input type="date" onChange={handleChange}></input>   
-            </div>
-            <input className="bg-black hover:bg-gray-800 text-white p-2 rounded-md" type="submit" value="Submit"/>
-        </form>            
-    </div>
-  
-    )
-}
+        </div>
+        <div>
+            <label className="block mb-1">
+                <input
+                    type="checkbox"
+                    name="checkbox2"
+                    checked={formData.checkbox2}
+                    onChange={handleChange}
+                    className="mr-2"
+                />
+                Has it arrived?
+            </label>
+        </div>
+        <div>
+            <label className="block mb-1">
+                <input
+                    type="checkbox"
+                    name="checkbox3"
+                    checked={formData.checkbox3}
+                    onChange={handleChange}
+                    className="mr-2"
+                />
+                Was it resent?
+            </label>
+        </div>
+        <div>
+            <label className="block mb-1">
+                <input
+                    type="checkbox"
+                    name="checkbox4"
+                    checked={formData.checkbox4}
+                    onChange={handleChange}
+                    className="mr-2"
+                />
+                Has it been delivered?
+            </label>
+        </div>
+        <div>
+            <label className="block mb-1" htmlFor="selected_date1">Lab Date:</label>
+            <input
+                type="date"
+                name="selected_date1"
+                value={formData.selected_date1}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </div>
+        <div>
+            <label className="block mb-1" htmlFor="selected_date2">Arrival Date:</label>
+            <input
+                type="date"
+                name="selected_date2"
+                value={formData.selected_date2}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </div>
+        <div>
+            <label className="block mb-1" htmlFor="selected_date3">Resent Date:</label>
+            <input
+                type="date"
+                name="selected_date3"
+                value={formData.selected_date3}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </div>
+        <div>
+            <label className="block mb-1" htmlFor="selected_date4">Delivery Date:</label>
+            <input
+                type="date"
+                name="selected_date4"
+                value={formData.selected_date4}
+                onChange={handleChange}
+                className="w-full border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+        </div>
+        <div>
+            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                {id ? "Update" : "Add"}
+            </button>
+            {error && <p className="text-red-500">{error}</p>}
+        </div>
+    </form>
+</div>
 
-export default Prosthesis
+    );
+};
+
+export default AddProsthesisForm;

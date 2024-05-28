@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Patients from "./Patients";
 
+
 const Providers = () => {
+    const [patients, setPatients] = useState([]) // Updated code
     const [provider, setProvider] = useState({
         id: 1,
         name: 'Dr. Mendoza'
@@ -14,10 +16,30 @@ const Providers = () => {
         { id: 4, name: 'Dr. Alvarez' }
     ];
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/patients");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch patients");
+                }
+                const data = await response.json();
+                console.log(data)
+                setPatients(data.patient);
+                console.log(data.patient)
+            } catch (error) {
+                console.error("Error fetching patients:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const handleProviderChange = (e) => {
         const selectedProvider = providerList.find(provider => provider.name === e.target.value);
         setProvider(selectedProvider);
-    };
+        console.log(selectedProvider)
+    }
 
     return (
         <>
@@ -33,7 +55,7 @@ const Providers = () => {
                     </label>
                 </form>            
             </div>
-            <Patients provider={provider} />
+            <Patients patients={patients.filter(patient => patient.provider_id === provider.id)} providerName={provider.name} providerId={provider.id}/>
         </>
     );
 }
