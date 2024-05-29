@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect, useState} from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 const AddProsthesisForm = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         prosthesis_type: "",
         checkbox1: false,
@@ -51,7 +52,7 @@ const AddProsthesisForm = () => {
 
             if (id) {
                 url = `http://localhost:8000/update_Prosthesis/${id}`;
-                method = "POST";
+                method = "PUT";
             }
 
             const response = await fetch(url, {
@@ -73,7 +74,7 @@ const AddProsthesisForm = () => {
                 checkbox3: false,
                 checkbox4: false
             }));
-
+            navigate(`/details/${id}`)
             // Optionally, provide feedback to the user on successful submission
             console.log("Prosthesis added/updated successfully");
 

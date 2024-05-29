@@ -15,32 +15,54 @@ import AddProsthesisForm from './pages/prosthesisForm';
 import ProsthesisList from './pages/Prostheses';
 import { useState } from 'react';
 
-function App() {
+function App(props) {
   const URL = process.env.REACT_APP_URL;
   const [user, setUser] = useState(null)
   const Navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('jwt-token') !== null);
 
-  const handleLogin = async(user) => {
-    console.log(URL)
-    const response = await fetch(`${URL}/login`, {
+  const handleLogin = async (user) => {
+    try {
+        const response = await fetch("http://localhost:8000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user)
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to login");
+        }
+
+        const data = await response.json();
+        console.log(data)
+        const token = data.access_token;
+        console.log(token)
+        // // Assuming the token is returned in the response data???
+        // const token = data.token;
+
+        // console.log(token)
+
+        // Store the token in local storage
+        localStorage.setItem('jwt-token', token);
+        console.log(token)
+        // Update isLoggedIn state
+        setIsLoggedIn(true);
+
+        // Redirect to home page
+        Navigate('/home');
+    } catch (error) {
+        console.error("Error logging in:", error);
+        // Handle login error
+    }
+}
+
+  const handleSignUp = async(user) => {
+    const response = await fetch("http://localhost:8000/signup",{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user)
-    });
-    const data = await response.json();
-    console.log(data)
-    if (response.status !== 200) {
-      return data;
-    }
-    Navigate('/home')
-  }
-  const handleSignUp = async(user) => {
-    const response = await fetch(`${URL}/signup`,{
-      method: "POST",
-      headers: {
-        "Content-Type": "applicaion/json",
       },
       body: JSON.stringify(user)
     });
@@ -49,9 +71,16 @@ function App() {
     Navigate("/login")
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('jwt-token');
+    setIsLoggedIn(false); // Update isLoggedIn state
+    Navigate("/");
+  };
+
+
   return (
     <>
-    <Navbar/>
+    <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} handleNavigate={Navigate} token={'jwt-token'}/>
 <Routes>
     <Route path="/" element={<Signup handleSignUp={handleSignUp}/>}></Route>,
     <Route path="/login" element={<Login handleLogin={handleLogin}/>}></Route>,

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const AddPatientForm = () => {
     const { id } = useParams();
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",
@@ -74,10 +75,12 @@ const AddPatientForm = () => {
                 patient_number: "",
                 provider_id: 1, // Reset provider ID to default
             });
+            navigate("/home");
         } catch (error) {
             console.error("Error adding/updating patient:", error);
         }
     };
+
 
     return (
 <div className="max-w-md mx-auto">
