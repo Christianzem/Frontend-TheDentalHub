@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function ProsthesisList(props) {
+    const {id}  = useParams()
     const URL = process.env.REACT_APP_URL
     const [prostheses, setProstheses] = useState([]);
 
     useEffect(() => {
         const fetchProstheses = async () => {
             try {
-                const response = await fetch("http://localhost:8000/prosthesis");
+                const response = await fetch("http://localhost:8000/prosthesis"); // http://localhost:8000/patients/${id}/prostheses
                 console.log(response)
                 if (!response.ok) {
                     throw new Error('Failed to fetch prostheses');
