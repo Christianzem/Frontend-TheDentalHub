@@ -1,6 +1,6 @@
 
 import './App.css';
-import '../src/tailwind.css';
+import './tailwind.css';
 import { Navigate, Route, Routes, redirect, useNavigate } from 'react-router-dom';
 import Signup from './components/signup';
 import Login from './components/login';
