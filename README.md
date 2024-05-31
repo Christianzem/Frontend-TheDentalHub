@@ -16,11 +16,11 @@ This is an application where Dental personnel can submit their patients dental p
 > TailwindCSS (Styling) </br>
 
 ## Screenshots
-<img href="/SignUp.png">
-<img href="/Home.png">
-<img href="/PatientDetails.png">
-<img href="/Prosthesis.png">
-<img href="/Patient">
+<img src="/Frontend-TheDentalHub/SignUp.png">
+<img src="/Frontend-TheDentalHub/Home.png">
+<img src="/Frontend-TheDentalHub/PatientDetails.png">
+<img src="/Frontend-TheDentalHub/Prosthesis.png">
+<img src="/Frontend-TheDentalHub/Patient.png">
 
 
 ## Links 
