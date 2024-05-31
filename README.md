@@ -10,21 +10,28 @@ The Dental Hub
 This is an application where Dental personnel can submit their patients dental prostheses (such as dentures/partials/crowns) and keep track of when prostheses are sent to the lab, sent back to the clinic, resent to the lab, and when they are delivered to the patient. Allows an easier flow of keeping record of dental prostheses.
 
 ## Techstack 
-> Python - Flask Framework(Backend)
-> React (Frontend)
-> MongoDB (Database)
-> TailwindCSS (Styling)
+> Python - Flask Framework(Backend) </br>
+> React (Frontend) </br>
+> MongoDB (Database) </br>
+> TailwindCSS (Styling) </br>
 
 ## Screenshots
+<img href="/SignUp.png">
+<img href="/Home.png">
+<img href="/PatientDetails.png">
+<img href="/Prosthesis.png">
+<img href="/Patient">
+
 
 ## Links 
-Heroku Link: 
-Trello Link: https://trello.com/b/JWIhHd7s/capstone-project
+Heroku Link: https://thedentalhub-frontend-76d158ed88fa.herokuapp.com/ </br>
+Trello Link: https://trello.com/b/JWIhHd7s/capstone-project </br>
+Backend Repo: https://github.com/Christianzem/Backend-TheDentalHub </br>
 
 ## Future Features
 
-> Include a text message verification when user is logging in 
-> Include a feature where the assigned Dental provider receives an email regarding the insertion of a new prosthetic or new patient. 
-> A confirmation page indicating if the user is aware of the deletion of a patient. 
-> Custom colors 
-> Include Light/Dark mode 
+> Include a text message verification when user is logging in </br>
+> Include a feature where the assigned Dental provider receives an email regarding  the insertion of a new prosthetic or new patient. </br>
+> A confirmation page indicating if the user is aware of the deletion of a patient. </br>
+> Custom colors </br>
+> Include Light/Dark mode </br>
