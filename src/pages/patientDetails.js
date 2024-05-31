@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import ProsthesisList from "./Prostheses";
 
 const Details = () => {
+    const URL = process.env.REACT_APP_URL
     const { id } = useParams(); // Retrieve patient ID from URL params
     const [patient, setPatient] = useState(null);
 
     useEffect(() => {
         const fetchPatientDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/patients/${id}`);
+                const response = await fetch(`${URL}/patients/${id}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch patient details");
                 }

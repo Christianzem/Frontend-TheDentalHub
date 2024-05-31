@@ -2,6 +2,7 @@ import React, { useEffect, useState} from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 const AddProsthesisForm = () => {
+    const URL = process.env.REACT_APP_URL
     const { id } = useParams();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ const AddProsthesisForm = () => {
         if (id) {
             const fetchProsthesisData = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8000/prosthesis/${id}`);
+                    const response = await fetch(`${URL}/prosthesis/${id}`);
                     if (!response.ok) {
                         throw new Error("Failed to fetch Prosthesis data");
                     }
@@ -47,11 +48,11 @@ const AddProsthesisForm = () => {
         e.preventDefault();
 
         try {
-            let url = "http://localhost:8000/add_Prosthesis";
+            let url = `${URL}/add_Prosthesis`;
             let method = "POST";
 
             if (id) {
-                url = `http://localhost:8000/update_Prosthesis/${id}`;
+                url = `${URL}/update_Prosthesis/${id}`;
                 method = "PUT";
             }
 

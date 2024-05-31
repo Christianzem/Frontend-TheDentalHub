@@ -9,7 +9,7 @@ const Patients = (props) => {
     useEffect(() => {
         const fetchPatients = async () => {
           try {
-            const response = await fetch("http://localhost:8000/patients");
+            const response = await fetch(`${URL}/patients`);
             if (!response.ok) {
               throw new Error("Failed to fetch patients");
             }
@@ -38,7 +38,7 @@ const Patients = (props) => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/delete_patient/${id}`, {
+      const response = await fetch(`${URL}/delete_patient/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {

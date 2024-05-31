@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const AddPatientForm = () => {
+    const URL = process.env.REACT_APP_URL
     const { id } = useParams();
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ const AddPatientForm = () => {
             // Fetch patient data based on patientId when component mounts
             const fetchPatientData = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8000/patients/${id}`);
+                    const response = await fetch(`$${URL}/patients/${id}`);
                     if (!response.ok) {
                         throw new Error("Failed to fetch patient data");
                     }
@@ -46,12 +47,12 @@ const AddPatientForm = () => {
         e.preventDefault();
 
         try {
-            let url = "http://localhost:8000/add_patient";
+            let url = `${URL}/add_patient`;
             let method = "POST";
 
             // If patientId is provided, update patient instead of adding
             if (id) {
-                url = `http://localhost:8000/update_patient/${id}`;
+                url = `${URL}/update_patient/${id}`;
                 method = "POST";
             }
 

@@ -3,6 +3,7 @@ import Patients from "./Patients";
 
 
 const Providers = () => {
+    const URL = process.env.REACT_APP_URL
     const [patients, setPatients] = useState([]) // Updated code
     const [provider, setProvider] = useState({
         id: 1,
@@ -19,7 +20,7 @@ const Providers = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/patients");
+                const response = await fetch(`${URL}/patients`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch patients");
                 }

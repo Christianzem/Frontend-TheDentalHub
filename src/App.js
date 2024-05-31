@@ -23,7 +23,7 @@ function App(props) {
 
   const handleLogin = async (user) => {
     try {
-        const response = await fetch("http://localhost:8000/login", {
+        const response = await fetch(`${URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,7 +59,8 @@ function App(props) {
 }
 
   const handleSignUp = async(user) => {
-    const response = await fetch("http://localhost:8000/signup",{
+    // http://localhost:8000/signup
+    const response = await fetch(`${URL}/signup`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
