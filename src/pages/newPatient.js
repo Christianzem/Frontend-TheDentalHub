@@ -19,7 +19,7 @@ const AddPatientForm = () => {
             // Fetch patient data based on patientId when component mounts
             const fetchPatientData = async () => {
                 try {
-                    const response = await fetch(`$${URL}/patients/${id}`);
+                    const response = await fetch(`${URL}/patients/${id}`);
                     if (!response.ok) {
                         throw new Error("Failed to fetch patient data");
                     }
