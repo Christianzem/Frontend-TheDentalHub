@@ -15,7 +15,7 @@ const AddProsthesisForm = () => {
         selected_date2: "",
         selected_date3: "",
         selected_date4: "", 
-        patient_id: id // Patient ID
+        // patient_id: id // Patient ID
     });
     const [error, setError] = useState("");
 
