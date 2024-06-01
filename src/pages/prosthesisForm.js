@@ -45,7 +45,7 @@ const AddProsthesisForm = () => {
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e, id) => {
         e.preventDefault();
 
         try {
