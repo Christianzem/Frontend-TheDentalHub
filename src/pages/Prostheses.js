@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 
 function ProsthesisList(props) {
-    const {id}  = useParams()
+    const {patient_id}  = useParams()
     const URL = process.env.REACT_APP_URL
     const [prostheses, setProstheses] = useState([]);
 
     useEffect(() => {
         const fetchProstheses = async () => {
             try {
-                const response = await fetch(`${URL}/patients/${id}/prostheses`); // http://localhost:8000/patients/${id}/prostheses
+                const response = await fetch(`${URL}/patients/${patient_id}}/prostheses`); // http://localhost:8000/patients/${id}/prostheses
                 console.log(response)
                 if (!response.ok) {
                     throw new Error('Failed to fetch prostheses');
@@ -22,7 +22,7 @@ function ProsthesisList(props) {
         };
 
         fetchProstheses();
-    }, []);
+    }, [patient_id, URL]);
 
     const handleDelete = async (id) => {
         try {
