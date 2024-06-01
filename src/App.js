@@ -93,7 +93,7 @@ function App(props) {
     {/* <Route path="/patient" element={<NewPatient/>}></Route> */}
     <Route path="/patient" element={<AddPatientForm/>}></Route>
     <Route path="/edit/:id" element={<AddPatientForm/>}></Route>
-    <Route path="/prosthesis" element={<ProsthesisList/>}></Route>
+    <Route path="/prosthesis/:id" element={<ProsthesisList/>}></Route>
 </Routes>
     </>
 
