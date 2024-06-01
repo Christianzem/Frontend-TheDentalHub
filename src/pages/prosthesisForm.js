@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
-const AddProsthesisForm = () => {
+const AddProsthesisForm = (props) => {
     const URL = process.env.REACT_APP_URL
     const { id } = useParams();
     const navigate = useNavigate();

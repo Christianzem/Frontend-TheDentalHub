@@ -28,6 +28,11 @@ Heroku Link: https://thedentalhub-frontend-76d158ed88fa.herokuapp.com/ </br>
 Trello Link: https://trello.com/b/JWIhHd7s/capstone-project </br>
 Backend Repo: https://github.com/Christianzem/Backend-TheDentalHub </br>
 
+## Relevant Sources
+> ChatGPT
+> WebDevSimplified (Youtube Channel)
+> React Documentation
+
 ## Future Features
 
 > Include a text message verification when user is logging in </br>
