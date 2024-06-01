@@ -9,7 +9,7 @@ function ProsthesisList(props) {
     useEffect(() => {
         const fetchProstheses = async () => {
             try {
-                const response = await fetch(`${URL}/prosthesis`); // http://localhost:8000/patients/${id}/prostheses
+                const response = await fetch(`${URL}/patients/${id}/prostheses`); // http://localhost:8000/patients/${id}/prostheses
                 console.log(response)
                 if (!response.ok) {
                     throw new Error('Failed to fetch prostheses');
