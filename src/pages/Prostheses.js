@@ -10,7 +10,6 @@ function ProsthesisList(props) {
         const fetchProstheses = async () => {
             try {
                 const response = await fetch(`${URL}/patients/${patient_id}/prosthesis`); // http://localhost:8000/patients/${id}/prostheses
-                console.log(patient_id)
                 console.log(response)
                 if (!response.ok) {
                     throw new Error('Failed to fetch prostheses');
